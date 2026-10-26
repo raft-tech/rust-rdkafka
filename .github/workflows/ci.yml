@@ -88,13 +88,14 @@ jobs:
         with:
           toolchain: ${{ env.rust_version }}
       - run: sudo apt-get update
-      - run: sudo apt-get install -y libcurl4-openssl-dev
+      - run: sudo apt-get install -y libcurl4-openssl-dev libssl-dev
       # `--features zstd` so the zstd compression round-trip test in
       # `tests/future_producer.rs` actually links zstd. The default build
       # passes `--disable-zstd` to librdkafka (see rdkafka-sys/build.rs),
       # which would make a `compression.type=zstd` producer reject the
       # config at creation.
-      - run: cargo test --features zstd
+      # SSL also enables librdkafka's OAUTHBEARER support for admin callback tests.
+      - run: cargo test --features zstd,ssl
         env:
           KAFKA_VERSION: ${{ matrix.kafka-version }}
           RUST_LOG: off
