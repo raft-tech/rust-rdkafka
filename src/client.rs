@@ -576,12 +576,6 @@ impl<C: ClientContext> Client<C> {
         })
     }
 
-    /// Returns a NativeQueue from the current client. The NativeQueue shouldn't
-    /// outlive the client it was generated from.
-    pub(crate) fn new_native_queue(&self) -> NativeQueue {
-        unsafe { NativeQueue::from_ptr(rdsys::rd_kafka_queue_new(self.native_ptr())).unwrap() }
-    }
-
     pub(crate) fn consumer_queue(&self) -> Option<NativeQueue> {
         unsafe { NativeQueue::from_ptr(rdsys::rd_kafka_queue_get_consumer(self.native_ptr())) }
     }

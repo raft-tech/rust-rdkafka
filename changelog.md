@@ -4,7 +4,9 @@ See also the [rdkafka-sys changelog](rdkafka-sys/changelog.md).
 
 ## Unreleased
 
-None
+* Handle OAuth token refresh, logging, statistics, and errors on the admin
+  client's background thread.
+* **Breaking change.** Custom `AdminClient` contexts must now be `'static`.
 
 ## 0.39.0 (2026-01-25)
 
